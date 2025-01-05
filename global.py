@@ -186,6 +186,17 @@ def colorTransfer(display):
       result = result.astype('uint8')  # Converte o resultado para tipo uint8
       result = cv2.cvtColor(result, cv2.COLOR_LAB2RGB)  # Converte para RGB
 
+      L, a, b = cv2.split(result)
+
+      # Criar uma máscara onde os canais cromáticos (a, b) são iguais a 0
+      mascara_cromatica_zerada = (b == 0)
+
+      # Contar os pixels com os canais cromáticos zerados
+      pixels_com_cromatica_zerada = np.sum(mascara_cromatica_zerada)
+
+      # Exibir o resultado
+      print(f"Há {pixels_com_cromatica_zerada} pixels com os canais cromáticos (a e b) zerados.")
+
       # Mostra imagem de resultado na tela
       showResult(result, display)
 
@@ -376,7 +387,7 @@ target_window.protocol("WM_DELETE_WINDOW", on_toplevel_close)
 
 # Janela referente à imagem result
 result_window = tk.Toplevel(source_window)
-result_window.title('Result Image (From Color Transfering Process)')
+result_window.title('Result Image (From Global Color Transfering Process)')
 
 # Define tamanho e posição da janela
 result_window.geometry("+1000+0")

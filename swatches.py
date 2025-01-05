@@ -89,8 +89,11 @@ def add_swatch(event, image_type):
     x2, y2 = min(x1 + width, img_width), min(y1 + height, img_height)
 
     # Determina a cor para o novo swatch
-    swatch_index = min(source_count, target_count)
-    color = SWATCH_COLORS[swatch_index]
+    color = SWATCH_COLORS[0]
+    if image_type == "source":
+        color = SWATCH_COLORS[source_count]
+    else:
+        color = SWATCH_COLORS[target_count]
 
     # Adiciona o swatch
     swatches.append({
@@ -285,6 +288,8 @@ def texture_synthesis(colorized_swatches, result_img, result_mask):
             # Aplicando a melhor correspondência de cor (A e B)
             if best_patch is not None:
                 result_pad[i-half_size:i+half_size, j-half_size:j+half_size, 1:] = best_patch[:, :, 1:]
+            else:
+                print("aaaaaaaaaa")
 
     # Retorna o resultado sem o padding
     return result_pad[size:-size, size:-size]
@@ -609,7 +614,7 @@ target_window.protocol("WM_DELETE_WINDOW", on_toplevel_close)
 
 # Janela referente à imagem result
 result_window = tk.Toplevel(source_window)
-result_window.title('Result Image (From Color Transfering Process)')
+result_window.title('Result Image (From Color Transfering Process with Swatches)')
 
 # Define tamanho e posição da janela
 result_window.geometry("+1000+0")
