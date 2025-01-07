@@ -183,7 +183,7 @@ def lumRemap(lumA, lumB):
 
 # Função para amostragem jitterizada e armazenamento de coordenadas
 # Como funciona:
-# - A imagem é dividida em uma grade de blocos de tamanho M×N.
+# - A imagem é dividida em uma grade de MxN blocos.
 # - Para cada bloco, um ponto é selecionado aleatoriamente dentro de seus limites. Isso é feito para evitar padrões fixos.
 # Retorno: três arrays
 # 1) Coordenadas de cada amostra na imagem original
@@ -196,7 +196,7 @@ def jitterSampling(img, M, N, imgStd):
     lum = []
     std = []
 
-    # Calcula o tamanho dos passos a partir do tamanho dos blocos MxN indicados
+    # Calcula o tamanho dos passos a partir do tamanho dos MxN blocos indicados
     stepX = img.shape[0] // M  # Tamanho do passo em linhas
     stepY = img.shape[1] // N  # Tamanho do passo em colunas
 
